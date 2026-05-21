@@ -8,7 +8,8 @@ const FileStoreFactory = require('session-file-store');
 const app = express();
 const FileStore = FileStoreFactory(session);
 
-const PORT = process.env.PORT || 3000;
+const PORT =
+  process.env.PORT || 8080;
 
 const DATA_DIR =
   process.env.DATA_DIR ||
@@ -35,27 +36,36 @@ const SESSION_SECRET =
   'merdeka-secret';
 
 function ensureDir(dir) {
+
   if (!fs.existsSync(dir)) {
+
     fs.mkdirSync(dir, {
       recursive: true
     });
+
   }
+
 }
 
 ensureDir(DATA_DIR);
 ensureDir(SESSION_DIR);
 
 if (!fs.existsSync(DATA_FILE)) {
+
   fs.writeFileSync(
     DATA_FILE,
     '[]',
     'utf8'
   );
+
 }
 
 app.set('trust proxy', 1);
 
-app.set('view engine', 'ejs');
+app.set(
+  'view engine',
+  'ejs'
+);
 
 app.set(
   'views',
@@ -74,6 +84,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use(session({
+
   name: 'bukti_sid',
 
   secret: SESSION_SECRET,
@@ -98,40 +109,56 @@ app.use(session({
       60 *
       24
   }
+
 }));
 
 app.use(
   '/css',
   express.static(
-    path.join(__dirname, 'public/css')
+    path.join(
+      __dirname,
+      'public/css'
+    )
   )
 );
 
 app.use(
   '/js',
   express.static(
-    path.join(__dirname, 'public/js')
+    path.join(
+      __dirname,
+      'public/js'
+    )
   )
 );
 
 app.use(
   '/img',
   express.static(
-    path.join(__dirname, 'public/img')
+    path.join(
+      __dirname,
+      'public/img'
+    )
   )
 );
 
 app.use(
   '/admin/css',
   express.static(
-    path.join(__dirname, 'admin/css')
+    path.join(
+      __dirname,
+      'admin/css'
+    )
   )
 );
 
 app.use(
   '/admin/js',
   express.static(
-    path.join(__dirname, 'admin/js')
+    path.join(
+      __dirname,
+      'admin/js'
+    )
   )
 );
 
@@ -211,6 +238,33 @@ function slugify(value) {
 
 }
 
+function publicPosts(q) {
+
+  let posts =
+    readData().filter(
+      p => p.published !== false
+    );
+
+  if (q) {
+
+    const term =
+      String(q)
+        .toLowerCase();
+
+    posts =
+      posts.filter(
+        p =>
+          `${p.title || ''} ${p.excerpt || ''}`
+            .toLowerCase()
+            .includes(term)
+      );
+
+  }
+
+  return posts;
+
+}
+
 function requireLoginPage(
   req,
   res,
@@ -218,9 +272,11 @@ function requireLoginPage(
 ) {
 
   if (!req.session.user) {
+
     return res.redirect(
       '/admin/login'
     );
+
   }
 
   next();
@@ -234,11 +290,13 @@ function requireLoginApi(
 ) {
 
   if (!req.session.user) {
+
     return res
       .status(401)
       .json({
         error: 'unauthorized'
       });
+
   }
 
   next();
@@ -247,17 +305,19 @@ function requireLoginApi(
 
 app.get('/', (req, res) => {
 
-  const posts =
-    readData().filter(
-      p => p.published !== false
-    );
-
   res.render(
     'pages/index',
     {
       title:
-        'Bukti Jackpot Lunas',
-      posts
+        'Bukti Jackpot Lunas - Merdeka Togel',
+
+      posts:
+        publicPosts(
+          req.query.q
+        ),
+
+      q:
+        req.query.q || ''
     }
   );
 
@@ -267,7 +327,8 @@ app.get(
   '/bukti/:id',
   (req, res) => {
 
-    const posts = readData();
+    const posts =
+      publicPosts();
 
     const item =
       posts.find(
@@ -293,8 +354,19 @@ app.get(
     res.render(
       'pages/detail',
       {
-        title: item.title,
-        item
+        title:
+          item.title,
+
+        item,
+
+        related:
+          posts
+            .filter(
+              p =>
+                p.id !==
+                item.id
+            )
+            .slice(0, 8)
       }
     );
 
@@ -304,9 +376,11 @@ app.get(
 app.get(
   '/admin',
   (req, res) => {
+
     res.redirect(
       '/admin/login'
     );
+
   }
 );
 
@@ -315,9 +389,11 @@ app.get(
   (req, res) => {
 
     if (req.session.user) {
+
       return res.redirect(
         '/admin/dashboard'
       );
+
     }
 
     res.render(
@@ -458,10 +534,14 @@ app.get(
   '/api/bukti',
   (req, res) => {
 
-    const posts =
-      readData();
+    const list =
+      req.session.user
+        ? readData()
+        : publicPosts(
+            req.query.q
+          );
 
-    res.json(posts);
+    res.json(list);
 
   }
 );
@@ -475,6 +555,7 @@ app.post(
       readData();
 
     const post = {
+
       id:
         slugify(
           req.body.title
@@ -512,6 +593,7 @@ app.post(
       date:
         new Date()
           .toISOString()
+
     };
 
     posts.unshift(post);
