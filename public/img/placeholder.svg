@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#20222b"/><stop offset="1" stop-color="#111318"/></linearGradient></defs>
+  <rect width="800" height="450" fill="url(#g)"/>
+  <text x="400" y="220" text-anchor="middle" fill="#ffd86b" font-family="Arial" font-size="34" font-weight="700">MERDEKA TOGEL</text>
+  <text x="400" y="265" text-anchor="middle" fill="#ffffff" font-family="Arial" font-size="22">BUKTI JACKPOT</text>
+</svg>

@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= title %></title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/admin/css/admin.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div>
+        <h2>⚙️ Admin Bukti JP</h2>
+        <p>Login: <b><%= username %></b></p>
+      </div>
+      <div class="top-actions">
+        <a class="btn gray" href="/" target="_blank">Lihat Web</a>
+        <button class="btn gray" onclick="addCard()">+ Tambahkan Bukti JP</button>
+        <button class="btn red" onclick="logout()">Logout</button>
+      </div>
+    </div>
+    <div id="cards"></div>
+  </div>
+  <template id="card-tpl">
+    <div class="card">
+      <div class="card-head">
+        <span class="badge">Bukti JP</span>
+        <div class="card-actions">
+          <button class="btn green pub-btn" data-publish="true">Publikasikan</button>
+          <button class="btn orange hide-btn" data-publish="false">Sembunyikan</button>
+          <button class="btn red del-btn">Hapus</button>
+        </div>
+      </div>
+      <div class="row">
+        <div><label>Judul</label><input class="title" placeholder="Judul Postingan.."></div>
+        <div><label>Link Gambar</label><input class="thumb" placeholder="Link Gambar Utama Postingan.."></div>
+        <div><label>Deskripsi Singkat</label><input class="excerpt" placeholder="Deskripsi Singkat.."></div>
+      </div>
+      <div class="update small"></div>
+      <div class="toolbar">
+        <button type="button" onclick="fmt(this,'bold')"><b>B</b></button>
+        <button type="button" onclick="fmt(this,'italic')"><i>I</i></button>
+        <button type="button" onclick="fmt(this,'underline')"><u>U</u></button>
+        <button type="button" onclick="insert(this,'<ul><li></li></ul>')">• List</button>
+        <button type="button" onclick="insert(this,'<ol><li></li></ol>')">1. List</button>
+        <button type="button" onclick="insert(this,'<p><br></p>')">Paragraf</button>
+      </div>
+      <div class="editor" contenteditable="true" spellcheck="false"></div>
+      <div class="actions"><button class="btn gold save-btn">Simpan Bukti JP</button></div>
+    </div>
+  </template>
+  <script src="/admin/js/admin-pro.js"></script>
+</body>
+</html>

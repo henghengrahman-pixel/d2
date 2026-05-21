@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= title %></title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/admin/css/admin.css">
+</head>
+<body>
+  <div class="container" style="max-width:420px">
+    <div class="card">
+      <h2>Login Admin</h2>
+      <div class="notice">Masuk memakai ADMIN_USER/ADMIN_PASS dari Railway.</div>
+      <form onsubmit="return login(event)">
+        <label>Username</label>
+        <input id="username" autocomplete="username" required>
+        <label>Password</label>
+        <input id="password" type="password" autocomplete="current-password" required>
+        <button class="btn gold" type="submit">Masuk</button>
+      </form>
+    </div>
+  </div>
+  <script src="/admin/js/admin.js"></script>
+</body>
+</html>

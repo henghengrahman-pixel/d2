@@ -1,0 +1,141 @@
+:root{
+  --bg:#0b0c0f; --bg2:#0f1117; --panel:#171922; --line:#2b2e39;
+  --text:#e9eaee; --muted:#b9bdc9;
+  --gold:#ffd86b; --gold2:#e1b64c;
+  --green:#10b981; --orange:#f59e0b; --red:#ef4444; --blue:#2b62f0;
+}
+
+/* ===== Base ===== */
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;
+  color:var(--text);
+  background:
+    linear-gradient(135deg, #0b0c0f 0%, #1a1c25 40%, #0f1117 100%),
+    url("https://www.transparenttextures.com/patterns/dark-mosaic.png");
+  background-size:cover, 200px;
+  background-attachment:fixed;
+  min-height:100vh;
+  position:relative;
+}
+.container{width:min(1100px,92%);margin:22px auto}
+
+/* efek bintang halus */
+body::after{
+  content:"";
+  position:fixed;inset:0;pointer-events:none;opacity:.25;
+  background-image:
+    radial-gradient(1px 1px at 10% 20%, #ffffff22 0.5px, transparent 1px),
+    radial-gradient(1px 1px at 80% 30%, #ffffff22 0.5px, transparent 1px),
+    radial-gradient(1px 1px at 30% 70%, #ffffff22 0.5px, transparent 1px);
+  background-size: 1200px 1200px, 900px 900px, 700px 700px;
+  mix-blend-mode:screen;
+}
+
+/* ===== Card (login & dashboard) ===== */
+.card{
+  background: linear-gradient(180deg,#141721cc,#0f1218cc);
+  border:1px solid #2a2e3a;
+  border-radius:18px;
+  padding:20px;
+  box-shadow:
+    0 10px 30px rgba(0,0,0,.5),
+    inset 0 0 0 1px rgba(255,216,107,.08);
+  position:relative;
+}
+.card::before{
+  content:"";
+  position:absolute;left:0;right:0;top:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  opacity:.65;border-top-left-radius:18px;border-top-right-radius:18px;
+}
+
+/* ===== Button & Input ===== */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:10px 14px;border-radius:12px;border:1px solid transparent;
+  font-weight:700;cursor:pointer;user-select:none;
+  transition:transform .05s ease, filter .2s;
+}
+.btn:active{transform:translateY(1px)}
+.btn.gold{background:linear-gradient(180deg,var(--gold),var(--gold2));color:#1a1400}
+.btn.gold:hover{filter:brightness(1.05)}
+.btn.green{background:var(--green);color:#04261a}
+.btn.orange{background:var(--orange);color:#3a2200}
+.btn.red{background:var(--red);color:#fff}
+.btn.gray{background:#262833;color:#fff;border:1px solid var(--line)}
+
+input,textarea,select{
+  width:100%;padding:12px 14px;border-radius:12px;outline:none;
+  background:#0f1218;border:1px solid #2b2e39;color:var(--text);
+  transition:border-color .2s, box-shadow .2s;
+}
+input::placeholder{color:#8f94a6}
+input:focus{
+  border-color:#8c6a1c;
+  box-shadow:0 0 0 3px rgba(255,216,107,.2), 0 6px 18px rgba(0,0,0,.35);
+}
+.notice{color:var(--muted);font-size:14px}
+
+/* ===== LOGIN PAGE ===== */
+.container[style*="max-width:420px"]{margin-top:8vh}
+
+/* ⬇️ FIX: scope logo hanya untuk halaman login */
+.container[style*="max-width:420px"] .card h2{
+  margin:12px 0 8px;
+  font-size:22px;
+  letter-spacing:.3px;
+  padding-top:115px; /* ruang untuk logo bulat */
+  text-align:center;
+  position:relative;
+}
+.container[style*="max-width:420px"] .card h2::before{
+  content:"";
+  position:absolute;left:50%;top:18px;transform:translateX(-50%);
+  width:90px;height:90px;
+  border-radius:50%;
+  background:
+    url("https://blogger.googleusercontent.com/img/a/AVvXsEgtd0zlJeIVn1a-ebLA7HqH7Z8vijyeX_QHDniLzRyqqnpFh8KzTuxRf4qYDyLJ-zEG5aXOXds95pqSJOc8BI_XoxDVCvelomsu9YQai4cErIzdAEEuZPJqW-QB_sDaR-WvL1Li2ngzrxecT1H_RKhVuiQmJ5C8yut3c4BVvnNvUSPYvtfrXopHa-dOMF3j")
+    center/contain no-repeat;
+  border:3px solid var(--gold2);
+  background-color:#111319;
+  box-shadow:
+    0 0 12px rgba(255,216,107,.6),
+    0 0 28px rgba(255,216,107,.25),
+    inset 0 0 8px rgba(0,0,0,.5);
+  animation:pulseGlow 3s infinite;
+}
+@keyframes pulseGlow{
+  0%,100%{box-shadow:0 0 12px rgba(255,216,107,.6),0 0 28px rgba(255,216,107,.25),inset 0 0 8px rgba(0,0,0,.5);}
+  50%{box-shadow:0 0 20px rgba(255,216,107,.9),0 0 38px rgba(255,216,107,.35),inset 0 0 10px rgba(0,0,0,.6);}
+}
+
+/* form */
+.card form label{display:block;margin:6px 0 6px;color:#d9dbea;font-weight:600}
+.card .btn.gold{width:100%;padding:12px 16px;border-radius:14px}
+
+/* footer */
+.login-footer{margin-top:14px;text-align:center;color:#9fa6b7;font-size:12px}
+.login-footer a{color:#caa64a;text-decoration:none}
+
+/* ===== Dashboard Shared ===== */
+.header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.badge{display:inline-block;padding:6px 10px;border-radius:8px;background:#0f172a;border:1px solid var(--line);font-size:13px;color:#c7cbe0}
+#cards{display:flex;flex-direction:column;gap:16px}
+.card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.row{display:grid;grid-template-columns:1fr;gap:10px;margin-bottom:8px}
+@media(min-width:900px){.row{grid-template-columns:1fr 1fr 1fr}}
+
+.toolbar{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+.toolbar button{background:#262833;border:1px solid var(--line);color:#e9ecff;border-radius:8px;padding:6px 10px;cursor:pointer;font-size:13px}
+.editor{background:#0e1118;border:1px solid var(--line);border-radius:10px;min-height:180px;padding:12px;line-height:1.55}
+.actions{display:flex;justify-content:flex-end;margin-top:8px}
+.preview{display:block;margin:8px 0;border-radius:10px;border:1px solid var(--line);max-width:560px;max-height:260px;object-fit:cover;background:#0e1118}
+.small{font-size:12px;color:var(--muted)}
+.hint{font-size:12px;color:#9ea3b4;margin-top:4px}
+.hint a{color:#2b62f0;text-decoration:none}
+
+/* ===== EJS FINAL FIX ===== */
+.header h2{margin:0 0 4px}.header p{margin:0;color:var(--muted);font-size:13px}.top-actions,.card-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.card-head{gap:10px}.editor{min-height:190px}.editor:focus{outline:2px solid rgba(255,216,107,.25)}
+@media(max-width:760px){.header{align-items:flex-start;gap:12px;flex-direction:column}.top-actions,.card-actions{width:100%;justify-content:flex-start}.btn{width:100%;}.card-head{align-items:flex-start;flex-direction:column}.actions .btn{width:100%}}

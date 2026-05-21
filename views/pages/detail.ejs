@@ -1,0 +1,35 @@
+<%- include('../partials/head', { title }) %>
+<main class="container detail">
+  <a class="btn back" href="/">← Kembali ke Beranda</a>
+  <% if (!item) { %>
+    <div class="card"><div class="body"><h1>Data tidak ditemukan</h1><p>Bukti JP yang dicari tidak tersedia atau belum dipublikasikan.</p></div></div>
+  <% } else { %>
+    <div class="detail-layout">
+      <article class="card">
+        <img class="thumb" src="<%= item.image || item.thumb || '/img/placeholder.svg' %>" alt="<%= item.title %>" loading="lazy" decoding="async" onerror="this.src='/img/placeholder.svg'">
+        <div class="body">
+          <h1><%= item.title %></h1>
+          <div class="small"><%= new Date(item.date || Date.now()).toLocaleString('id-ID', { weekday:'long', day:'2-digit', month:'long', year:'numeric', hour:'2-digit', minute:'2-digit' }) %></div>
+          <div class="content"><%- item.contentHtml || '' %></div>
+        </div>
+      </article>
+      <aside class="aside">
+        <h4>Bukti JP Lainnya:</h4>
+        <% if (related && related.length) { %>
+          <% related.forEach(function(p){ %>
+            <a href="/bukti/<%= encodeURIComponent(p.id) %>" class="item">
+              <img class="thumb" src="<%= p.thumb || p.image || '/img/placeholder.svg' %>" alt="<%= p.title %>" loading="lazy" decoding="async" onerror="this.src='/img/placeholder.svg'">
+              <div class="body">
+                <h5><%= p.title %></h5>
+                <div class="meta"><%= new Date(p.date || Date.now()).toLocaleDateString('id-ID', { weekday:'long', day:'2-digit', month:'long', year:'numeric' }).toUpperCase() %></div>
+              </div>
+            </a>
+          <% }) %>
+        <% } else { %>
+          <p class="small">Belum ada bukti lainnya.</p>
+        <% } %>
+      </aside>
+    </div>
+  <% } %>
+</main>
+<%- include('../partials/footer') %>

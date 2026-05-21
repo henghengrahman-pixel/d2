@@ -1,0 +1,36 @@
+<%- include('../partials/head', { title }) %>
+<%- include('../partials/header', { q }) %>
+<main class="container">
+  <h1 class="title">⦿ BUKTI JACKPOT LUNAS MERDEKA TOGEL</h1>
+  <div class="marquee" role="marquee">
+    <div class="track">Selamat datang di MERDEKA TOGEL, Bandar Togel, Live Casino & Slot Online Terbesar di Indonesia.</div>
+  </div>
+  <div id="posts" class="grid">
+    <% if (posts && posts.length) { %>
+      <% posts.forEach(function(p){ %>
+        <article class="card">
+          <img class="thumb" src="<%= p.thumb || p.image || '/img/placeholder.svg' %>" alt="<%= p.title || 'Bukti JP' %>" loading="lazy" decoding="async" onerror="this.src='/img/placeholder.svg'">
+          <div class="body">
+            <h5><%= p.title %></h5>
+            <div class="meta"><%= new Date(p.date || Date.now()).toLocaleDateString('id-ID', { weekday:'long', day:'2-digit', month:'long', year:'numeric' }).toUpperCase() %></div>
+            <div class="excerpt"><%= p.excerpt || '' %></div>
+            <a class="btn read" href="/bukti/<%= encodeURIComponent(p.id) %>">Read More</a>
+          </div>
+        </article>
+      <% }) %>
+    <% } else { %>
+      <div class="empty">Belum ada data Bukti JP yang dipublikasikan.</div>
+    <% } %>
+  </div>
+  <section class="bt-bottom">
+    <hr class="bt-divider">
+    <h2 class="bt-title">MERDEKA TOGEL — Pasti Bayar Kemenangan Member Sampai Lunas</h2>
+    <p class="bt-lead">MERDEKA TOGEL adalah pusat togel, slot & live casino yang selalu memprioritaskan keamanan transaksi dan kenyamanan pemain. Seluruh bukti jackpot yang tampil di halaman ini kami sensor sesuai privasi member, namun proses pembayarannya <b>selalu diselesaikan hingga lunas</b>.</p>
+    <h3 class="bt-sub">Berapa lama proses pelunasan dana?</h3>
+    <p>Rata-rata proses pencairan normal memakan waktu <b>3–15 menit</b> setelah pengajuan withdraw tergantung antrian & status operasional bank. Jika ada kendala dari pihak bank/maintenance, tim kami akan menginformasikan update sampai dana sukses terkirim.</p>
+    <h3 class="bt-sub">Masih ragu? Tenang, kami siap buktikan.</h3>
+    <p>Kami menyediakan bukti jackpot harian, live chat & WhatsApp resmi yang aktif 24 jam. Prioritas kami adalah pembayaran tepat waktu dan pelayanan ramah. Terima kasih atas kepercayaan Anda pada <b>MERDEKA TOGEL</b>.</p>
+    <footer class="bt-copy">© COPYRIGHT 2014 – 2026 MERDEKA TOGEL. ALL RIGHTS RESERVED.</footer>
+  </section>
+</main>
+<%- include('../partials/footer') %>
